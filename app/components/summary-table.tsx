@@ -3,9 +3,9 @@ import { CircleArrowDown, CircleArrowUp } from "lucide-react";
 export function SummaryDisplay() {
   return (
     <div className="grid  grid-cols-3 mt-5">
-      <div className="flex flex-col border rounded-tl-2xl rounded-bl-2xl p-3 justify-between">
+      <div className="flex flex-col border rounded-tl-2xl rounded-bl-2xl p-3 justify-between border-r-0">
         <h6 className="text-[0.6em] text-[#5a5a5a]">New subcriptions</h6>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1 items-end pt-5">
           <div className="flex flex-col gap-1">
             <div className="flex gap-1 text-[0.8em] items-center">
               <span>22</span>
@@ -16,12 +16,12 @@ export function SummaryDisplay() {
             </div>
             <span className="text-[0.5em] font-normal">compared to last week</span>
           </div>
-          <div className="border bg-amber-200 h-5"></div>
+          <div className="border bg-amber-200 h-20"></div>
         </div>
       </div>
       <div className="flex flex-col border p-3">
         <h6 className="text-[0.6em] text-[#5a5a5a]">New orders</h6>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1 items-end pt-5">
           <div className="flex flex-col gap-1">
             <div className="flex gap-1 text-[0.8em] items-center">
               <span>320</span>
@@ -32,12 +32,12 @@ export function SummaryDisplay() {
             </div>
             <span className="text-[0.5em] font-normal">compared to last week</span>
           </div>
-          <div className="border bg-amber-200 h-5"></div>
+          <div className="border bg-amber-200 h-20"></div>
         </div>
       </div>
-      <div className="flex flex-col border rounded-tr-2xl rounded-br-2xl p-3">
+      <div className="flex flex-col border rounded-tr-2xl rounded-br-2xl border-l-0 p-3">
         <h6 className="text-[0.6em] text-[#5a5a5a]">Avg. order revenue</h6>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1 items-end pt-5">
           <div className="flex flex-col gap-1">
             <div className="flex gap-1 text-[0.8em] items-center">
               <span>$1,080</span>
@@ -48,7 +48,7 @@ export function SummaryDisplay() {
             </div>
             <span className="text-[0.5em] font-normal">compared to last week</span>
           </div>
-          <div className="border bg-amber-200 h-5"></div>
+          <div className="border bg-amber-200 h-20"></div>
         </div>
       </div>
     </div>
