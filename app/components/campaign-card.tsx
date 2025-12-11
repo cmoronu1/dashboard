@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Images } from "./images";
 import { Progress } from "@/components/ui/progress";
+import { format } from "date-fns";
 
 interface CampaignCardInterface {
   campaign: campaign;
@@ -22,7 +23,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
                   {campaign.status == "Draft"
                     ? "Not Started"
                     : campaign.status == "In Progress"
-                    ? campaign.startDate
+                    ? format(campaign.startDate,'MMM dd, yyyy')
                     : campaign.endDate}
                 </span>
               </div>
@@ -31,7 +32,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
                   {campaign.status == "In Progress" ? "Ends:" : ""}
                 </span>
                 <span>
-                  {campaign.status == "In Progress" ? campaign.endDate : ""}
+                  {campaign.status == "In Progress" ? format(campaign.endDate, 'MMM dd, yyy')  : ""}
                 </span>
               </div>
             </div>
@@ -39,6 +40,10 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
               className="h-1 bg-[#f0f0f0] w-[98%]"
               value={campaign.status == "In Progress" ? campaign.progress : 0}
             />
+            <div className="flex gap-1 text-[0.9em]">
+              <span className="text-[#9f9f9f]">Last updated:</span>
+              <span className="text-[#4a4a4a]">{format(campaign.updatedAt,'MMM dd, yyyy') }</span>
+            </div>
           </div>
         </CardContent>
       </Card>
