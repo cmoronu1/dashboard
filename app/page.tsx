@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import { FilterBox } from "./components/filter-page";
-import {  SearchBar } from "./components/search-page";
+import { SearchBar } from "./components/search-page";
 import { AllTask } from "./data/campaigns";
+import { CampaignWrapper } from "./components/campaign-wrapper";
 
 export default function Home() {
   const [data, setData] = useState(AllTask);
-  return <div className="w-[70%] m-auto mt-5">
-    <SearchBar/>
-    <FilterBox/>
-  </div>;
+  return (
+    <div className="w-[70%] m-auto mt-5">
+      <SearchBar />
+      <FilterBox />
+      <CampaignWrapper campaigns={data} />
+    </div>
+  );
 }
