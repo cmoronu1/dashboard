@@ -13,7 +13,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
         <CardContent className="p-0">
           <div className="flex flex-col gap-4 text-[0.8em]">
             <Images image={campaign.logo} />
-            {campaign.title}
+            <span className="font-bold">{campaign.title}</span>
             <div className="flex justify-between text-[0.8em]">
               <div className="flex gap-1">
                 <span className="text-[#9d9d9d]">
@@ -23,7 +23,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
                   {campaign.status == "Draft"
                     ? "Not Started"
                     : campaign.status == "In Progress"
-                    ? format(campaign.startDate,'MMM dd, yyyy')
+                    ? format(campaign.startDate, "MMM dd, yyyy")
                     : campaign.endDate}
                 </span>
               </div>
@@ -32,7 +32,9 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
                   {campaign.status == "In Progress" ? "Ends:" : ""}
                 </span>
                 <span>
-                  {campaign.status == "In Progress" ? format(campaign.endDate, 'MMM dd, yyy')  : ""}
+                  {campaign.status == "In Progress"
+                    ? format(campaign.endDate, "MMM dd, yyy")
+                    : ""}
                 </span>
               </div>
             </div>
@@ -42,7 +44,9 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
             />
             <div className="flex gap-1 text-[0.9em]">
               <span className="text-[#9f9f9f]">Last updated:</span>
-              <span className="text-[#4a4a4a]">{format(campaign.updatedAt,'MMM dd, yyyy') }</span>
+              <span className="text-[#4a4a4a]">
+                {format(campaign.updatedAt, "MMM dd, yyyy")}
+              </span>
             </div>
           </div>
         </CardContent>
