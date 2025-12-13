@@ -40,7 +40,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
             </div>
             <Progress
               className="h-1 bg-[#f0f0f0] w-[98%]"
-              value={campaign.status == "In Progress" ? campaign.progress : 0}
+              value={campaign.status == "In Progress" ? campaign.progress : 0 }
             />
             <div className="flex gap-1 text-[0.9em]">
               <span className="text-[#9f9f9f]">Last updated:</span>

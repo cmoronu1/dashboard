@@ -35,7 +35,7 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
   const [form, setForm] = useState<campaign>({
     logo: "",
     title: "",
-    progress: "",
+    progress: -1,
     startDate: "",
     endDate: "",
     updatedAt: "",
@@ -46,24 +46,15 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
   const isDisabled = useMemo(() => {
     let filteredObject = {};
 
-    if (form.status != "In Progress") {
-      filteredObject = Object.fromEntries(
+    filteredObject = Object.fromEntries(
         Object.entries(form).filter(
           ([Key, value]) =>
             Key != "status" && Key != "progress" && Key != "users"
-        )
-      );
-    } else {
-      filteredObject = Object.fromEntries(
-        Object.entries(form).filter(
-          ([Key, value]) => Key != "status" && Key != "users"
-        )
-      );
-    }
+        ))
 
     return !(
       Object.values(filteredObject).every((member: any) => member.length > 0) &&
-      Object.values(form.users).length > 2
+      Object.values(form.users).length > 2 && Object.values(form.progress)[0] != -1
     );
   }, [form]);
 
@@ -129,7 +120,7 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
                     : member == "progress"
                     ? setForm((p) => ({
                         ...p,
-                        progress: event.target.value,
+                        progress: event.target.value as unknown as number,
                       }))
                     : member == "startDate"
                     ? setForm((p) => ({
