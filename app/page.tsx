@@ -12,7 +12,7 @@ export default function Home() {
     <div className="w-[70%] m-auto mt-5">
       <SearchBar />
       <FilterBox />
-      <CampaignWrapper campaigns={data} />
+      <CampaignWrapper campaigns={data} setCampaign = {setData} />
     </div>
   );
 }

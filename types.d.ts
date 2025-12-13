@@ -1,7 +1,7 @@
 type campaign = {
   logo: string;
   title: string;
-  progress: number;
+  progress: string;
   startDate: string;
   endDate: string;
   users: User[];

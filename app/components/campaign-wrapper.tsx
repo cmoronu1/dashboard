@@ -1,10 +1,12 @@
 import { Key } from "lucide-react";
 import { CampaignColumn } from "./campaign-column";
+import { Dispatch, SetStateAction } from "react";
 
 interface WrapperInterface {
   campaigns: campaign[];
+  setCampaign: Dispatch<SetStateAction<campaign[]>>;
 }
-export function CampaignWrapper({ campaigns }: WrapperInterface) {
+export function CampaignWrapper({ campaigns, setCampaign }: WrapperInterface) {
   return (
     <div className="w-[95%] m-auto">
       <div className="flex justify-between mt-8 items-center">
@@ -16,6 +18,7 @@ export function CampaignWrapper({ campaigns }: WrapperInterface) {
           <div key={member}>
             <CampaignColumn
               data={campaigns.filter((campaign) => campaign.status == member)}
+              setCampaigns={setCampaign}
             />
           </div>
         ))}

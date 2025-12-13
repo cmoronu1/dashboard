@@ -1,10 +1,15 @@
 import { CampaignCard } from "./campaign-card";
 import { AddCampaign } from "./add-campaign";
+import { Dispatch, SetStateAction } from "react";
 
 interface CampaignColumnInterface {
   data: campaign[];
+  setCampaigns: Dispatch<SetStateAction<campaign[]>>;
 }
-export function CampaignColumn({ data }: CampaignColumnInterface) {
+export function CampaignColumn({
+  data,
+  setCampaigns,
+}: CampaignColumnInterface) {
   return (
     <div className="flex flex-col gap-3">
       <div className="text-[#939393] flex items-center gap-2 text-[0.8em]">
@@ -17,9 +22,8 @@ export function CampaignColumn({ data }: CampaignColumnInterface) {
         <div key={member.title}>
           <CampaignCard campaign={member} />
         </div>
-        
       ))}
-      <AddCampaign/>
+      <AddCampaign data = {data} setData = {setCampaigns} />
     </div>
   );
 }
