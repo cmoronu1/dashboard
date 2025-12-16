@@ -19,6 +19,7 @@ export function CampaignWrapper({ campaigns, setCampaign }: WrapperInterface) {
             <CampaignColumn
               data={campaigns.filter((campaign) => campaign.status == member)}
               setCampaigns={setCampaign}
+              status = {member}
             />
           </div>
         ))}

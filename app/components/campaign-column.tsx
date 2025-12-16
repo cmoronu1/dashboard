@@ -5,15 +5,16 @@ import { Dispatch, SetStateAction } from "react";
 interface CampaignColumnInterface {
   data: campaign[];
   setCampaigns: Dispatch<SetStateAction<campaign[]>>;
+  status: string
 }
 export function CampaignColumn({
   data,
-  setCampaigns,
+  setCampaigns, status
 }: CampaignColumnInterface) {
   return (
     <div className="flex flex-col gap-3">
       <div className="text-[#939393] flex items-center gap-2 text-[0.8em]">
-        <span>{data[0].status}</span>{" "}
+        <span>{status}</span>
         <span className="text-black border-0 bg-[#f5f5f5] w-4 rounded-[0.3rem] text-center">
           {data.length}
         </span>
@@ -23,7 +24,7 @@ export function CampaignColumn({
           <CampaignCard campaign={member} />
         </div>
       ))}
-      <AddCampaign data = {data} setData = {setCampaigns} />
+      <AddCampaign data = {data} setData = {setCampaigns} currentStatus = {status}/>
     </div>
   );
 }

@@ -4,8 +4,12 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Bell, Command, Dot, Search } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
+interface SearchBarInterface {
+  setFind: Dispatch<SetStateAction<string>>;
+}
 
-export function SearchBar() {
+export function SearchBar({ setFind }: SearchBarInterface) {
   return (
     <div className="flex justify-between items-center">
       <div className="flex gap-1 flex-1">
@@ -14,7 +18,11 @@ export function SearchBar() {
       </div>
       <div className="flex gap-3 items-center">
         <InputGroup className=" h-7 flex items-center bg-[#f5f5f5]">
-          <InputGroupInput className="text-[#c8c8c8]" placeholder="Search" />
+          <InputGroupInput
+            onChange={(event) => setFind(event.target.value)}
+            className="text-[black]"
+            placeholder="Search"
+          />
           <InputGroupAddon>
             <Search className="text-black" />
           </InputGroupAddon>
@@ -24,7 +32,11 @@ export function SearchBar() {
         </InputGroup>
         <div className="flex relative">
           <Bell size={16} />
-          <Dot className="absolute bottom-1.5 left-2" size={16} color="#fc630d" />
+          <Dot
+            className="absolute bottom-1.5 left-2"
+            size={16}
+            color="#fc630d"
+          />
         </div>
       </div>
     </div>

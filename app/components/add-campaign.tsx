@@ -30,9 +30,10 @@ import { format } from "date-fns";
 interface AddCampaignInterface {
   data: campaign[];
   setData: Dispatch<SetStateAction<campaign[]>>;
+  currentStatus: string;
 }
 
-export function AddCampaign({ data, setData }: AddCampaignInterface) {
+export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterface) {
   const [form, setForm] = useState<campaign>({
     logo: "",
     title: "",
@@ -40,7 +41,7 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
     startDate: "",
     endDate: "",
     updatedAt: "",
-    status: data[0].status,
+    status: currentStatus as unknown as CampaignStatus,
     users: [],
   });
 
@@ -76,7 +77,7 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
       startDate: "",
       endDate: "",
       updatedAt: "",
-      status: data[0].status,
+      status: currentStatus as unknown as CampaignStatus,
       users: [],
     }));
   }
@@ -114,14 +115,14 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
                     member == "logo"
                       ? "https://example.com/logo1.png"
                       : member == "progress" &&
-                        (data[0].status == "Draft" ||
-                          data[0].status == "Archived")
+                        (currentStatus == "Draft" ||
+                          currentStatus == "Archived")
                       ? 0
                       : ""
                   }
                   disabled={
                     member == "progress" &&
-                    (data[0].status == "Draft" || data[0].status == "Archived")
+                    (currentStatus == "Draft" || currentStatus == "Archived")
                       ? true
                       : false
                   }
@@ -162,7 +163,7 @@ export function AddCampaign({ data, setData }: AddCampaignInterface) {
           )}
           <div className="grid gap-3">
             <Label>Status</Label>
-            <Input defaultValue={data[0].status} disabled />
+            <Input defaultValue={currentStatus} disabled />
           </div>
           <Label>User</Label>
           <AddUser form={form} setForm={setForm} />

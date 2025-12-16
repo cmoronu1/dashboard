@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FilterBox } from "./components/filter-page";
 import { SearchBar } from "./components/search-page";
 import { AllTask } from "./data/campaigns";
@@ -8,11 +8,22 @@ import { CampaignWrapper } from "./components/campaign-wrapper";
 
 export default function Home() {
   const [data, setData] = useState(AllTask);
+  const [search , setSearch] = useState('')
+  const filteredData = useMemo(()=>{
+    if (search.length >0){
+      
+      return data.filter((member)=> member.title.toLowerCase().includes(search.toLowerCase()))
+    }
+    else{
+      return data
+    }
+
+  },[data,search])
   return (
     <div className="w-[70%] m-auto mt-5">
-      <SearchBar />
+      <SearchBar  setFind = {setSearch} />
       <FilterBox />
-      <CampaignWrapper campaigns={data} setCampaign = {setData} />
+      <CampaignWrapper campaigns={filteredData} setCampaign = {setData} />
     </div>
   );
 }
