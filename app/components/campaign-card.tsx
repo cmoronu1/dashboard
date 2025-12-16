@@ -24,7 +24,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
                     ? "Not Started"
                     : campaign.status == "In Progress"
                     ? format(campaign.startDate, "MMM dd, yyyy")
-                    : campaign.endDate}
+                    : format(campaign.endDate, "MMM dd, yyyy")}
                 </span>
               </div>
               <div className="flex gap-1">
