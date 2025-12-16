@@ -17,3 +17,4 @@ type User = {
 };
 
 type CampaignStatus = "Draft" | "In Progress" | "Archived";
+

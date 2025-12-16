@@ -8,22 +8,28 @@ import { CampaignWrapper } from "./components/campaign-wrapper";
 
 export default function Home() {
   const [data, setData] = useState(AllTask);
-  const [search , setSearch] = useState('')
-  const filteredData = useMemo(()=>{
-    if (search.length >0){
-      
-      return data.filter((member)=> member.title.toLowerCase().includes(search.toLowerCase()))
+  const [search, setSearch] = useState("");
+  const [dateSelect, setDateSelect] = useState({ startDate: "", endDate: "" });
+  const filteredData = useMemo(() => {
+    if (search.length > 0) {
+      return data.filter((member) =>
+        member.title.toLowerCase().includes(search.toLowerCase())
+      );
+    } else {
+      return data;
     }
-    else{
-      return data
-    }
-
-  },[data,search])
+  }, [data, search]);
   return (
     <div className="w-[70%] m-auto mt-5">
-      <SearchBar  setFind = {setSearch} />
-      <FilterBox />
-      <CampaignWrapper campaigns={filteredData} setCampaign = {setData} />
+      <SearchBar setFind={setSearch} />
+      <FilterBox
+        dateSelect={dateSelect}
+        setDateSelect={setDateSelect}
+        data={data}
+        setData={setData}
+        filteredData={filteredData}
+      />
+      <CampaignWrapper campaigns={filteredData} setCampaign={setData} />
     </div>
   );
 }
