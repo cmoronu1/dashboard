@@ -27,7 +27,7 @@ export default function Home() {
     }
   }, [data, search, dateSelect]);
   return (
-    <div className="w-[70%] m-auto mt-5">
+    <div className="w-[70%] m-auto mt-5 not-lg:w-[90%]">
       <SearchBar setFind={setSearch} />
       <FilterBox dateSelect={dateSelect} setDateSelect={setDateSelect} />
       <CampaignWrapper

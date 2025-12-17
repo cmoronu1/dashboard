@@ -11,7 +11,7 @@ interface SearchBarInterface {
 
 export function SearchBar({ setFind }: SearchBarInterface) {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center flex-col gap-2  sm:flex-row">
       <div className="flex gap-1 flex-1">
         <span className="text-[0.7em] text-[#bebebe]">Campaigns /</span>
         <span className="text-[0.7em]">Analytics</span>

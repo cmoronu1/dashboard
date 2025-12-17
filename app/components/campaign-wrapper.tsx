@@ -28,7 +28,7 @@ export function CampaignWrapper({
           View All
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-5 mt-4">
+      <div className="grid grid-cols-3 gap-5 mt-4 not-md:grid-cols-1">
         {["Draft", "In Progress", "Archived"].map((member) => (
           <div key={member}>
             <CampaignColumn
