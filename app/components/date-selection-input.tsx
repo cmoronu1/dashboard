@@ -1,3 +1,14 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -25,97 +36,63 @@ interface DateInputInterface {
       endDate: string;
     }>
   >;
-  data: campaign[];
-  setData: Dispatch<SetStateAction<campaign[]>>;
-  filteredData: campaign[];
 }
 
-export function DateInput({
-  dateSelect,
-  setDateSelect,
-  data,
-  setData,
-  filteredData,
-}: DateInputInterface) {
+export function DateInput({ dateSelect, setDateSelect }: DateInputInterface) {
   const isDisabled = useMemo(() => {
     return !Object.values(dateSelect).every((member) => member.length > 0);
   }, [dateSelect]);
-
-  filteredData = useMemo(() => {
-    return data.filter(
-      (member) =>
-        member.startDate.includes(dateSelect.startDate) ||
-        member.endDate.includes(dateSelect.endDate)
-    );
-  }, [dateSelect]);
-  console.log(
-    data.filter(
-      (member) =>
-        member.startDate.includes(dateSelect.startDate) ||
-        member.endDate.includes(dateSelect.endDate)
-    )
-  );
   return (
-    <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button
-            className="font-normal text-[0.5em]"
-            size={"sm"}
-            variant="outline"
-          >
-            <Calendar />
-            Select Dates
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Choose Dates</DialogTitle>
-            <DialogDescription>
-              Select the From and To dates. Click save changes when you&apos;re
-              done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="from-1">From</Label>
-              <Input
-                onChange={(event) =>
-                  setDateSelect((p) => ({
-                    ...p,
-                    startDate: event.target.value,
-                  }))
-                }
-                type="date"
-                id="from-1"
-                name="From"
-              />
-            </div>
-            <div className="grid gap-3">
-              <Label htmlFor="to-1">To</Label>
-              <Input
-                onChange={(event) =>
-                  setDateSelect((p) => ({
-                    ...p,
-                    endDate: event.target.value,
-                  }))
-                }
-                type="date"
-                id="to-1"
-                name="To"
-              />
-            </div>
+    <AlertDialog>
+      <AlertDialogTrigger className="font-normal text-[0.5em] flex gap-1 items-center border rounded-[0.4rem] px-2 shadow">
+        <Calendar size={17} />
+        Select Dates
+      </AlertDialogTrigger>
+      <AlertDialogContent className="sm:max-w-[425px]">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Choose Dates</AlertDialogTitle>
+          <AlertDialogDescription>
+            Select the From and To dates. Click save changes when you&apos;re
+            done.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="grid gap-4">
+          <div className="grid gap-3">
+            <Label htmlFor="from-1">From</Label>
+            <Input
+              onChange={(event) =>
+                setDateSelect((p) => ({
+                  ...p,
+                  startDate: event.target.value,
+                }))
+              }
+              type="date"
+              id="from-1"
+              name="From"
+            />
           </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button disabled={isDisabled} type="submit">
-              Continue
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </form>
-    </Dialog>
+          <div className="grid gap-3">
+            <Label htmlFor="to-1">To</Label>
+            <Input
+              onChange={(event) =>
+                setDateSelect((p) => ({
+                  ...p,
+                  endDate: event.target.value,
+                }))
+              }
+              type="date"
+              id="to-1"
+              name="To"
+            />
+          </div>
+        </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction disabled={isDisabled} type="submit">
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

@@ -14,19 +14,9 @@ interface FilterBoxInterface {
       endDate: string;
     }>
   >;
-
-  data: campaign[];
-  setData: Dispatch<SetStateAction<campaign[]>>;
-  filteredData: campaign[];
 }
 
-export function FilterBox({
-  dateSelect,
-  setDateSelect,
-  data,
-  setData,
-  filteredData,
-}: FilterBoxInterface) {
+export function FilterBox({ dateSelect, setDateSelect }: FilterBoxInterface) {
   return (
     <div className="mt-10 text-2xl font-bold w-[95%] m-auto">
       <h1>Your total revenue</h1>
@@ -35,13 +25,7 @@ export function FilterBox({
           $90,239.00
         </h1>
         <div className="flex gap-2">
-          <DateInput
-            dateSelect={dateSelect}
-            setDateSelect={setDateSelect}
-            data={data}
-            setData={setData}
-            filteredData={filteredData}
-          />
+          <DateInput dateSelect={dateSelect} setDateSelect={setDateSelect} />
           <FilterSelection />
         </div>
       </div>

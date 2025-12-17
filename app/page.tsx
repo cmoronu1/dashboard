@@ -5,6 +5,7 @@ import { FilterBox } from "./components/filter-page";
 import { SearchBar } from "./components/search-page";
 import { AllTask } from "./data/campaigns";
 import { CampaignWrapper } from "./components/campaign-wrapper";
+import { format } from "date-fns";
 
 export default function Home() {
   const [data, setData] = useState(AllTask);
@@ -15,21 +16,25 @@ export default function Home() {
       return data.filter((member) =>
         member.title.toLowerCase().includes(search.toLowerCase())
       );
+    } else if ((dateSelect.startDate.length && dateSelect.endDate.length) > 0) {
+      return data.filter(
+        (member) =>
+          new Date(member.startDate) >= new Date(dateSelect.startDate) &&
+          new Date(member.endDate) <= new Date(dateSelect.endDate)
+      );
     } else {
       return data;
     }
-  }, [data, search]);
+  }, [data, search, dateSelect]);
   return (
     <div className="w-[70%] m-auto mt-5">
       <SearchBar setFind={setSearch} />
-      <FilterBox
-        dateSelect={dateSelect}
+      <FilterBox dateSelect={dateSelect} setDateSelect={setDateSelect} />
+      <CampaignWrapper
+        campaigns={filteredData}
+        setCampaign={setData}
         setDateSelect={setDateSelect}
-        data={data}
-        setData={setData}
-        filteredData={filteredData}
       />
-      <CampaignWrapper campaigns={filteredData} setCampaign={setData} />
     </div>
   );
 }
