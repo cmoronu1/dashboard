@@ -59,7 +59,7 @@ export function DateInput({ dateSelect, setDateSelect }: DateInputInterface) {
         <div className="grid gap-4">
           <div className="grid gap-3">
             <Label htmlFor="from-1">From</Label>
-            <Input
+            <Input value={dateSelect.startDate}
               onChange={(event) =>
                 setDateSelect((p) => ({
                   ...p,
@@ -73,7 +73,7 @@ export function DateInput({ dateSelect, setDateSelect }: DateInputInterface) {
           </div>
           <div className="grid gap-3">
             <Label htmlFor="to-1">To</Label>
-            <Input
+            <Input value={dateSelect.endDate}
               onChange={(event) =>
                 setDateSelect((p) => ({
                   ...p,
