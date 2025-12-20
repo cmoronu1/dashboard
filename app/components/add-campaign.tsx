@@ -112,9 +112,7 @@ export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterfa
                       : "text"
                   }
                   defaultValue={
-                    member == "logo"
-                      ? "https://example.com/logo1.png"
-                      : member == "progress" &&
+                     member == "progress" &&
                         (currentStatus == "Draft" ||
                           currentStatus == "Archived")
                       ? 0
@@ -129,7 +127,8 @@ export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterfa
                   placeholder={
                     member == "progress"
                       ? "Enter the percentage value e.g 50"
-                      : ""
+                      : member == "logo"
+                      ? "https://example.com/logo1.png":''
                   }
                   onChange={(event) =>
                     member == "logo"
