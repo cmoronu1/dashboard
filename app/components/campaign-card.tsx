@@ -8,7 +8,6 @@ interface CampaignCardInterface {
   campaign: campaign;
 }
 export function CampaignCard({ campaign }: CampaignCardInterface) {
-  console.log(campaign.users);
   return (
     <>
       <Card className="w-full  mt-2 px-3 pt-3">
@@ -18,9 +17,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
               <Images image={campaign.logo} />
               <div className="flex flex-col gap-1">
                 {campaign.users.map((member) => (
-                  <div key={member.id}>
-                    {member.name}
-                  </div>
+                  <div key={member.id}>{member.name}</div>
                 ))}
               </div>
             </div>
