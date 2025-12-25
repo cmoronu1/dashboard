@@ -12,14 +12,25 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 
 interface AddUserInterface {
   setForm: Dispatch<SetStateAction<campaign>>;
   progress: number;
+  form: campaign;
 }
 
-export function AddUser({ setForm, progress }: AddUserInterface) {
+export function AddUser({ setForm, progress, form }: AddUserInterface) {
+  const userArray = useMemo(() => {
+    if (Object.values(form.users).length > 2) {
+      console.log(form.users)
+      return Object.entries(form.users);
+    } else {
+      
+      return [];
+    }
+  }, [form.users]);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger className="border rounded-[0.6rem] w-25 h-10 bg-black text-white text-[0.9em]">
@@ -62,7 +73,13 @@ export function AddUser({ setForm, progress }: AddUserInterface) {
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() =>
+              setForm((p) => ({ ...p, users: userArray as unknown as User[] }))
+            }
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

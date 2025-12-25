@@ -49,6 +49,8 @@ export function AddCampaign({
     users: [],
   });
 
+  const dateToday = new Date();
+
   const isDisabled = useMemo(() => {
     let filteredObject = {};
 
@@ -68,8 +70,6 @@ export function AddCampaign({
       Object.values(form.progress)[0] != -1
     );
   }, [form]);
-
-  const dateToday = new Date();
 
   const progressValue = useMemo(() => {
     if (form.endDate.length && form.startDate.length > 0) {
@@ -156,7 +156,7 @@ export function AddCampaign({
             <Input defaultValue={currentStatus} disabled />
           </div>
           <Label>User</Label>
-          <AddUser setForm={setForm} progress={progressValue} />
+          <AddUser setForm={setForm} progress={progressValue} form={form} />
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
