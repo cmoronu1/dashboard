@@ -59,15 +59,13 @@ export function AddCampaign({
         ([Key, value]) =>
           Key != "status" &&
           Key != "progress" &&
-          Key != "users" &&
           Key != "updatedAt"
       )
     );
 
     return !(
-      Object.values(filteredObject).every((member: any) => member.length > 0) &&
-      Object.values(form.users).length > 2 &&
-      Object.values(form.progress)[0] != -1
+      Object.values(filteredObject).every((member: any) => member.length > 0)
+      
     );
   }, [form]);
 

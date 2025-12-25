@@ -10,10 +10,10 @@ type campaign = {
 };
 
 type User = {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
 
-  email: string;
+  email?: string;
 };
 
 type CampaignStatus = "Draft" | "In Progress" | "Archived";

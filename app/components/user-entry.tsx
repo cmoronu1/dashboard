@@ -12,7 +12,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface AddUserInterface {
   setForm: Dispatch<SetStateAction<campaign>>;
@@ -21,16 +21,14 @@ interface AddUserInterface {
 }
 
 export function AddUser({ setForm, progress, form }: AddUserInterface) {
-  // useEffect(() => {
-  //   if (Object.values(form.users).length > 2) {
-  //     setForm((p) => ({ ...p, users: [form.users] as unknown as User[] }));
-  //   }
-  // }, [form.users]);
+  const [user, setUser] = useState<User | null>(null);
 
-  console.log(form.users);
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="border rounded-[0.6rem] w-25 h-10 bg-black text-white text-[0.9em]">
+      <AlertDialogTrigger
+        onClick={() => setForm((p) => ({ ...p, progress: progress }))}
+        className="border rounded-[0.6rem] w-25 h-10 bg-black text-white text-[0.9em]"
+      >
         Add User
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -49,19 +47,18 @@ export function AddUser({ setForm, progress, form }: AddUserInterface) {
                 name={member}
                 onChange={(event) => {
                   member == "id"
-                    ? setForm((p) => ({
+                    ? setUser((p) => ({
                         ...p,
-                        users: { ...p.users, id: event.target.value },
-                        progress: progress,
+                        id: event.target.value,
                       }))
                     : member == "name"
-                    ? setForm((p) => ({
+                    ? setUser((p) => ({
                         ...p,
-                        users: { ...p.users, name: event.target.value },
+                        name: event.target.value,
                       }))
-                    : setForm((p) => ({
+                    : setUser((p) => ({
                         ...p,
-                        users: { ...p.users, email: event.target.value },
+                        email: event.target.value,
                       }));
                 }}
               />
@@ -70,7 +67,19 @@ export function AddUser({ setForm, progress, form }: AddUserInterface) {
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction
+            onClick={(event) => {
+              if (!user || !user?.id || !user?.name || !user?.email)
+                return event.preventDefault();
+              setForm((p) => ({
+                ...p,
+                users: [...p.users, user],
+              }));
+              setUser(null);
+            }}
+          >
+            Continue
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
