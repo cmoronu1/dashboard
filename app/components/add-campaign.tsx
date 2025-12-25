@@ -33,7 +33,11 @@ interface AddCampaignInterface {
   currentStatus: string;
 }
 
-export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterface) {
+export function AddCampaign({
+  data,
+  setData,
+  currentStatus,
+}: AddCampaignInterface) {
   const [form, setForm] = useState<campaign>({
     logo: "",
     title: "",
@@ -67,6 +71,18 @@ export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterfa
 
   const dateToday = new Date();
 
+  const progressValue = useMemo(() => {
+    if (form.endDate.length && form.startDate.length > 0) {
+      return Math.round(
+        (dateToday.getTime() /
+          (Date.parse(form.endDate) + Date.parse(form.startDate))) *
+          100
+      );
+    } else {
+      return -1;
+    }
+  }, [form.endDate, form.startDate]);
+
   function AddEntry() {
     setData((p) => [...p, form]);
     setForm((p) => ({
@@ -97,75 +113,50 @@ export function AddCampaign({ data, setData, currentStatus }: AddCampaignInterfa
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="grid gap-4">
-          {["logo", "title", "progress", "startDate", "endDate"].map(
-            (member) => (
-              <div className="grid gap-3" key={member}>
-                <Label>{member == "progress" ? member + " (%)" : member}</Label>
-                <Input
-                  type={
-                    member == "logo"
-                      ? "url"
-                      : member == "startDate" || member == "endDate"
-                      ? "date"
-                      : member == "progress"
-                      ? "number"
-                      : "text"
-                  }
-                  defaultValue={
-                     member == "progress" &&
-                        (currentStatus == "Draft" ||
-                          currentStatus == "Archived")
-                      ? 0
-                      : ""
-                  }
-                  disabled={
-                    member == "progress" &&
-                    (currentStatus == "Draft" || currentStatus == "Archived")
-                      ? true
-                      : false
-                  }
-                  placeholder={
-                    member == "progress"
-                      ? "Enter the percentage value e.g 50"
-                      : member == "logo"
-                      ? "https://example.com/logo1.png":''
-                  }
-                  onChange={(event) =>
-                    member == "logo"
-                      ? setForm((p) => ({
-                          ...p,
-                          logo: event.target.value,
-                        }))
-                      : member == "title"
-                      ? setForm((p) => ({ ...p, title: event.target.value }))
-                      : member == "progress"
-                      ? setForm((p) => ({
-                          ...p,
-                          progress: event.target.value as unknown as number,
-                        }))
-                      : member == "startDate"
-                      ? setForm((p) => ({
-                          ...p,
-                          startDate: event.target.value,
-                        }))
-                      : member == "endDate"
-                      ? setForm((p) => ({
-                          ...p,
-                          endDate: event.target.value,
-                          updatedAt: format(dateToday, "MMM dd, yyyy"),
-                        }))
-                      : ""
-                  }
-                />
-              </div>
-            )
-          )}
+          {["logo", "title", "startDate", "endDate"].map((member) => (
+            <div className="grid gap-3" key={member}>
+              <Label>{member}</Label>
+              <Input
+                type={
+                  member == "logo"
+                    ? "url"
+                    : member == "startDate" || member == "endDate"
+                    ? "date"
+                    : "text"
+                }
+                placeholder={
+                  member == "logo" ? "https://example.com/logo1.png" : ""
+                }
+                onChange={(event) =>
+                  member == "logo"
+                    ? setForm((p) => ({
+                        ...p,
+                        logo: event.target.value,
+                      }))
+                    : member == "title"
+                    ? setForm((p) => ({ ...p, title: event.target.value }))
+                    : member == "startDate"
+                    ? setForm((p) => ({
+                        ...p,
+                        startDate: event.target.value,
+                      }))
+                    : member == "endDate"
+                    ? setForm((p) => ({
+                        ...p,
+                        endDate: event.target.value,
+                        updatedAt: format(dateToday, "MMM dd, yyyy"),
+                      }))
+                    : ""
+                }
+              />
+            </div>
+          ))}
           <div className="grid gap-3">
             <Label>Status</Label>
             <Input defaultValue={currentStatus} disabled />
           </div>
           <Label>User</Label>
-          <AddUser form={form} setForm={setForm} />
+          <AddUser setForm={setForm} progress={progressValue} />
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

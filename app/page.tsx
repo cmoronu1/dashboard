@@ -31,7 +31,7 @@ export default function Home() {
       <SearchBar setFind={setSearch} />
       <FilterBox dateSelect={dateSelect} setDateSelect={setDateSelect} />
       <CampaignWrapper
-        campaigns={filteredData}
+        campaigns={filteredData.toReversed()}
         setCampaign={setData}
         setDateSelect={setDateSelect}
       />

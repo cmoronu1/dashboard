@@ -2,17 +2,29 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Images } from "./images";
 import { Progress } from "@/components/ui/progress";
 import { format } from "date-fns";
+import { Key } from "lucide-react";
 
 interface CampaignCardInterface {
   campaign: campaign;
 }
 export function CampaignCard({ campaign }: CampaignCardInterface) {
+  console.log(campaign.users);
   return (
     <>
       <Card className="w-full  mt-2 px-3 pt-3">
         <CardContent className="p-0">
           <div className="flex flex-col gap-4 text-[0.8em]">
-            <Images image={campaign.logo} />
+            <div className="flex  justify-between items-center">
+              <Images image={campaign.logo} />
+              <div className="flex flex-col gap-1">
+                {campaign.users.map((member) => (
+                  <div key={member.id}>
+                    {member.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <span className="font-bold">{campaign.title}</span>
             <div className="flex justify-between text-[0.8em]">
               <div className="flex gap-1">
@@ -40,7 +52,7 @@ export function CampaignCard({ campaign }: CampaignCardInterface) {
             </div>
             <Progress
               className="h-1 bg-[#f0f0f0] w-[98%]"
-              value={campaign.status == "In Progress" ? campaign.progress : 0 }
+              value={campaign.status == "In Progress" ? campaign.progress : 0}
             />
             <div className="flex gap-1 text-[0.9em]">
               <span className="text-[#9f9f9f]">Last updated:</span>

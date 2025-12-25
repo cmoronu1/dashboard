@@ -9,27 +9,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dispatch, SetStateAction } from "react";
 
 interface AddUserInterface {
-  form: campaign;
   setForm: Dispatch<SetStateAction<campaign>>;
+  progress: number;
 }
 
-export function AddUser({ form, setForm }: AddUserInterface) {
+export function AddUser({ setForm, progress }: AddUserInterface) {
   return (
     <AlertDialog>
       <AlertDialogTrigger className="border rounded-[0.6rem] w-25 h-10 bg-black text-white text-[0.9em]">
@@ -39,7 +29,7 @@ export function AddUser({ form, setForm }: AddUserInterface) {
         <AlertDialogHeader>
           <AlertDialogTitle>Add User</AlertDialogTitle>
           <AlertDialogDescription>
-            Add a user here. Click Save changes when you&apos;re done.
+            Add a user here. Click Continue when you&apos;re done.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <div className="grid gap-4">
@@ -54,6 +44,7 @@ export function AddUser({ form, setForm }: AddUserInterface) {
                     ? setForm((p) => ({
                         ...p,
                         users: { ...p.users, id: event.target.value },
+                        progress: progress,
                       }))
                     : member == "name"
                     ? setForm((p) => ({
